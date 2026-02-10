@@ -19,6 +19,9 @@ This project was created as part of my learning process to practice working with
 * Clean, responsive UI using Flexbox
 * API key stored locally for security
 
+*This project uses a public OpenWeather API key for demonstration purposes.
+For development, you may replace it with your own key if needed.
+
 ---
 
 ## Technologies Used
