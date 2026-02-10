@@ -36,7 +36,7 @@ This project was created as part of my learning process to practice working with
 1. Clone the repository
 
 ```
-git clone https://github.com/YOUR_USERNAME/Weather-App.git
+git clone https://github.com/JackJames-CS/Weather-App.git
 ```
 
 2. Navigate to the project folder
