@@ -1,7 +1,9 @@
 const weatherapp = document.querySelector(".weatherapp");
 const cityInput = document.querySelector(".cityInput");
 const card = document.querySelector(".card");
-const apikey = API_key;
+
+//add your
+const apikey = "7011db12ffdef36c0bb2d541a740a01d";
 const submitBtn = weatherapp.querySelector('button[type="submit"]');
 
 const unitToggle = document.querySelector(".unitToggle");
