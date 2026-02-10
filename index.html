@@ -9,15 +9,42 @@
 </head>
 
 <body>
+    
+    <nav class="nav">
+  <button class="navBtn active" data-page="home">Home</button>
+  <button class="navBtn" data-page="settings">Settings</button>
+  <button class="navBtn" data-page="recents">Recents</button>
+</nav>
+
+<main class="container">
+<section id="home" class="page active">
 <form class="weatherapp">
     <input type="text" class="cityInput" placeholder="Input City" />
     <button type="submit">Submit</button>
-    <button type="button" class="unitToggle">°C</button>
 </form>
 
-<div class="card" style="display: none">
-    
-</div>
+<div class="card" style="display: none"></div>
+</section>
+
+<section id="settings" class="page">
+  <div class="settingsCard">
+    <h2 class="settingsTitle">Settings</h2>
+
+    <div class="settingRow">
+      <span class="settingLabel">Temperature Units</span>
+      <button type="button" class="unitToggle">°C</button>
+    </div>
+
+  </div>
+</section>
+
+
+  <section id="recents" class="page">
+    <h2 class="pageTitle">Recent Searches</h2>
+    <div class="recent" id="recent"></div>
+  </section>
+
+</main>
 
 <script src="config.js"></script>
 <script src="script.js"></script> 

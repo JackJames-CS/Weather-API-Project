@@ -13,6 +13,7 @@ body{
     display: flex;
     align-items: center;
     gap: 10px;
+    justify-content: center;
 }
 
 .CityDisplay{
@@ -91,16 +92,129 @@ p{
     color: hsl(0, 0%, 0%, .75);
 }
 .unitToggle{
-    padding: 10px 20px;
+    padding: 8px 16px;
     font-weight: bold;
-    font-size: 2rem;
+    font-size: 1.2rem;
     background-color: rgb(116, 116, 116);
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
+    min-width: 70px;
 }
 
 .unitToggle:hover{
-    background-color: rgb(130, 130, 130);
+    background-color: rgb(170, 163, 163);
+}
+
+.unitToggle.active{
+    background-color: rgb(30, 30, 180);
+}
+
+.navBtn{
+    margin: 10px;
+  padding: 10px 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background: rgba(255,255,255,0.2);
+  color: white;
+}
+
+.navBtn:hover{ background: rgba(255,255,255,0.35); }
+
+.navBtn.active{
+  background: rgba(0,0,0,0.35);
+}
+
+.container{
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.page{ display: none; width: 100%; }
+.page.active{ display: block; }
+
+.pageTitle{
+  margin: 10px 0;
+  color: white;
+}
+
+.settingsCard{
+    background: rgba(0,0,0,0.25);
+    padding: 25px 30px;
+    border-radius: 15px;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+    min-width: 300px;
+    color: white;
+}
+
+.settingsTitle{
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.settingRow{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.settingLabel{
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+
+
+#recents .pageTitle{
+    text-align: center;
+    margin: 10px 0 18px;
+}
+
+.recent{
+    background: rgba(0,0,0,0.25);
+    padding: 18px;
+    border-radius: 15px;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+    min-width: 300px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+
+.recent button{
+    padding: 10px 14px;
+    border: 2px solid rgba(255,255,255,0.25);
+    border-radius: 999px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    background: rgba(255,255,255,0.18);
+    color: white;
+}
+
+
+.recent button:hover{
+    background: rgba(255,255,255,0.30);
+}
+
+.recent button:first-child{
+    background: rgba(0,0,0,0.30);
+    border-color: rgba(255,255,255,0.35);
+}
+
+.recentEmpty{
+    color: rgba(255,255,255,0.8);
+    text-align: center;
+    font-weight: bold;
+    margin: 0;
 }

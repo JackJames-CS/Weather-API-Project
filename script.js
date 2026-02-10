@@ -5,6 +5,12 @@ const apikey = API_key;
 const submitBtn = weatherapp.querySelector('button[type="submit"]');
 
 const unitToggle = document.querySelector(".unitToggle");
+const recentBox = document.querySelector("#recent");
+
+
+renderRecentSearches();
+
+
 
 let units = localStorage.getItem("units") || "metric";
 
@@ -21,6 +27,26 @@ unitToggle.addEventListener("click", () => {
 });
 
 
+//for Nav bar
+const navButtons = document.querySelectorAll(".navBtn");
+const pages = document.querySelectorAll(".page");
+
+function showPage(pageId){
+  pages.forEach(p => p.classList.remove("active"));
+  document.getElementById(pageId).classList.add("active");
+
+  navButtons.forEach(b => b.classList.remove("active"));
+  document.querySelector(`.navBtn[data-page="${pageId}"]`).classList.add("active");
+}
+
+navButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    showPage(btn.dataset.page);
+  });
+});
+
+
+
 weatherapp.addEventListener("submit", async event => {
     event.preventDefault();
 
@@ -34,6 +60,8 @@ weatherapp.addEventListener("submit", async event => {
 
             const weatherData = await getWeatherData(city);
             displayWeatherInfo(weatherData);
+            saveRecentSearch(city);
+
         }
         catch(error){
             console.error(error);
@@ -103,6 +131,8 @@ function displayWeatherInfo(data){
     card.appendChild(humidityDisplay);
     card.appendChild(descDisplay);
     card.appendChild(weatherEmoji);
+
+
 }
 
 function getWeatherEmoji(weatherId){
@@ -137,4 +167,55 @@ function displayError(message){
     errorDisplay.classList.add("errorDisplay");
 
     card.appendChild(errorDisplay);
+}
+
+function getRecentSearches(){
+    return JSON.parse(localStorage.getItem("recentCities")) || [];
+}
+
+function saveRecentSearch(city){
+    let cities = getRecentSearches();
+
+    // remove duplicates (case-insensitive)
+    cities = cities.filter(c => c.toLowerCase() !== city.toLowerCase());
+
+    // add to front
+    cities.unshift(city);
+
+    // keep only 5
+    cities = cities.slice(0, 5);
+
+    localStorage.setItem("recentCities", JSON.stringify(cities));
+    renderRecentSearches();
+}
+
+function renderRecentSearches(){
+    const cities = getRecentSearches();
+    recentBox.innerHTML = "";
+
+    if(cities.length === 0) return;
+
+    cities.forEach(city => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.textContent = city;
+
+        btn.addEventListener("click", async () => {
+            cityInput.value = city;
+            try{
+                submitBtn.disabled = true;
+                submitBtn.textContent = "Loading...";
+
+                const weatherData = await getWeatherData(city);
+                displayWeatherInfo(weatherData);
+            } catch(err){
+                displayError(err.message);
+            } finally{
+                submitBtn.disabled = false;
+                submitBtn.textContent = "Submit";
+            }
+        });
+
+        recentBox.appendChild(btn);
+    });
 }
