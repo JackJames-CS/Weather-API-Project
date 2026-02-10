@@ -10,17 +10,21 @@ body{
 
 .weatherapp{
     margin: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .CityDisplay{
-    text-align: center;
-    padding: 10px;
-    font-size: 2rem;
+    padding: 10px 20px;
+    font-size: 2.5rem;
     font-weight: bold;
     border: 2px solid hsla(0,0%,20%,0.3);
     border-radius: 10px;
     margin: 10px;
-    width: 300px;
+    text-align: center;
+    max-width: 100%;
+    word-wrap: break-word;
 }
 button[type="submit"]{
     padding: 10px 20px;
@@ -85,5 +89,18 @@ p{
     font-size: 2.5rem;
     font-weight: bold;
     color: hsl(0, 0%, 0%, .75);
-    display: none;
+}
+.unitToggle{
+    padding: 10px 20px;
+    font-weight: bold;
+    font-size: 2rem;
+    background-color: rgb(116, 116, 116);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.unitToggle:hover{
+    background-color: rgb(130, 130, 130);
 }

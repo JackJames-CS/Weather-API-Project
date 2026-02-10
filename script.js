@@ -2,13 +2,36 @@ const weatherapp = document.querySelector(".weatherapp");
 const cityInput = document.querySelector(".cityInput");
 const card = document.querySelector(".card");
 const apikey = API_key;
+const submitBtn = weatherapp.querySelector('button[type="submit"]');
+
+const unitToggle = document.querySelector(".unitToggle");
+
+let units = localStorage.getItem("units") || "metric";
+
+function unitSymbol() {
+    return units === "metric" ? "°C" : "°F";
+}
+
+unitToggle.textContent = unitSymbol();
+
+unitToggle.addEventListener("click", () => {
+    units = (units === "metric") ? "imperial" : "metric";
+    localStorage.setItem("units", units);
+    unitToggle.textContent = unitSymbol();
+});
+
 
 weatherapp.addEventListener("submit", async event => {
     event.preventDefault();
 
-    const city = cityInput.value;
+    const city = cityInput.value.trim();
+
     if(city){
         try{
+            // START loading state
+            submitBtn.disabled = true;
+            submitBtn.textContent = "Loading...";
+
             const weatherData = await getWeatherData(city);
             displayWeatherInfo(weatherData);
         }
@@ -16,23 +39,32 @@ weatherapp.addEventListener("submit", async event => {
             console.error(error);
             displayError(error.message);
         }
-
+        finally{
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Submit";
+        }
     }
     else{
         displayError("Please enter a City");
     }
-
-}); 
+});
 
 async function getWeatherData(city) {
-    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${apikey}&units=metric`;
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${apikey}&units=${units}`;
+
 
 
     const response = await fetch(apiUrl);
     
     if(!response.ok){
-        throw new Error("Could not fetch weather data");
+    if(response.status === 404){
+        throw new Error("City not found. Check the spelling and try again.");
     }
+    if(response.status === 401){
+        throw new Error("API key error (401).");
+    }
+    throw new Error("Could not fetch weather data.");
+}
     return await response.json();
 }
 
@@ -55,7 +87,7 @@ function displayWeatherInfo(data){
     const weatherEmoji = document.createElement("p");
 
     cityDisplay.textContent = city;
-    tempDisplay.textContent = `${temp.toFixed(1)}°C`;
+    tempDisplay.textContent = `${temp.toFixed(1)}${unitSymbol()}`;
     humidityDisplay.textContent = `Humidity: ${humidity}%`;
     descDisplay.textContent = description;
     weatherEmoji.textContent = getWeatherEmoji(id);
@@ -97,12 +129,12 @@ function getWeatherEmoji(weatherId){
 
 function displayError(message){
 
+    card.textContent = "";
+    card.style.display = "flex";
+
     const errorDisplay = document.createElement("p");
     errorDisplay.textContent = message;
     errorDisplay.classList.add("errorDisplay");
 
-    card.textContent = "";
-    card.style.display = "block";
     card.appendChild(errorDisplay);
-
 }
