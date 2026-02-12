@@ -61,7 +61,6 @@ Weather-App/
 │── index.html
 │── style.css
 │── script.js
-│── config.js (not included in repo)
 │── .gitignore
 ```
 
