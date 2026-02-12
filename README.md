@@ -17,10 +17,10 @@ This project was created as part of my learning process to practice working with
   * Weather emoji based on conditions
 * Error handling for invalid or empty city input
 * Clean, responsive UI using Flexbox
-* API key stored locally for security
 
-*This project uses a public OpenWeather API key for demonstration purposes.
-For development, you may replace it with your own key if needed.
+* This project uses a public OpenWeather API key for demonstration purposes.
+For development, you may replace it with your own key if needed. If this were a real
+deleveoped product it would be stored server-side for security 
 
 ---
 
